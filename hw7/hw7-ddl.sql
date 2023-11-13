@@ -223,7 +223,7 @@ CREATE TABLE peopleroles (
     people_id int NOT NULL,
     role_id int NOT NULL,
     date_assigned date default (current_date) NOT NULL,
-    primary key (peopleroles_id)
+    primary key (peopleroles_id),
     foreign key (people_id) references people (people_id) on delete cascade,
     foreign key (role_id) references roles (role_id) on delete cascade
 );
