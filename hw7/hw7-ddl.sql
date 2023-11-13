@@ -111,7 +111,7 @@ CREATE TABLE peopleskills (
     date_acquired date default (current_date),
     primary key (peopleskills_id),
     foreign key (skills_id) references skills (skills_id) on delete cascade,
-    foreign key (people_id) references people (people_id),
+    foreign key (people_id) references people (people_id) on delete cascade,
     unique (skills_id, people_id)
 );
 
@@ -191,9 +191,10 @@ INSERT INTO peopleskills (people_id, skills_id) values
 # sort_priority is an integer and is used to provide an order for sorting roles
 
 CREATE TABLE roles (
-    role_id int PRIMARY KEY,
+    role_id int,
     name varchar(255),
-    sort_priority int
+    sort_priority int,
+    primary key (role_id)
 );
 
 # SELECT * from roles;
@@ -218,12 +219,13 @@ INSERT INTO roles (role_id, name, sort_priority) values
 # None of the fields can be null.  ID can be auto_increment
 
 CREATE TABLE peopleroles (
-    peopleroles_id int auto_increment PRIMARY KEY,
+    peopleroles_id int auto_increment,
     people_id int NOT NULL,
     role_id int NOT NULL,
     date_assigned date default (current_date) NOT NULL,
-    foreign key (people_id) references people (people_id),
-    foreign key (role_id) references roles (role_id)
+    primary key (peopleroles_id)
+    foreign key (people_id) references people (people_id) on delete cascade,
+    foreign key (role_id) references roles (role_id) on delete cascade
 );
 
 # SELECT * FROM peopleroles;
