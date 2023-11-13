@@ -42,7 +42,7 @@ CREATE Table skills (
     primary key (skills_id)
 );
 
-SELECT * FROM skills;
+# SELECT * FROM skills;
 
 # Section 3
 # Populate skills
@@ -59,7 +59,7 @@ INSERT INTO skills (skills_id, name, description, tag, url, time_commitment) val
     (7, 'public speaking', 'ability to not cry or stutter when talking in front of 1,000 people', 'Skill 7', 'publicspeaking.com', '6 months'),
     (8, 'crocheting', 'ablility to make a big and soft blanket for me', 'Skill 8', 'crocheting.com', '8 months');
 
-SELECT * FROM skills;
+# SELECT * FROM skills;
 
 # Section 4
 # Create people(id, first_name, last_name, email, linkedin_url, headshot_url, discord_handle, brief_bio, date_joined)
@@ -79,7 +79,7 @@ CREATE TABLE people (
     primary key (people_id)
 );
 
-SELECT * from people;
+# SELECT * from people;
 
 # Section 5
 # Populate people with ten people.
@@ -98,7 +98,7 @@ INSERT INTO people (people_id, first_name, last_name, email, linkedin_url, heads
     (9, 'Kaylee', 'Person 9', 'kaylee@gmail.com', 'linkedin.kaylee.com', 'headshot.kaylee.com', 'itskaylee', 'the nineth best person'),
     (10, 'Cosmo', 'Person 10', 'cosmo@gmail.com', 'linkedin.cosmo.com', 'headshot.cosmo.com', 'itscosmo', 'the tenth best person');
 
-SELECT * from people;
+# SELECT * from people;
 
 # Section 6
 # Create peopleskills( id, skills_id, people_id, date_acquired )
@@ -115,7 +115,7 @@ CREATE TABLE peopleskills (
     unique (skills_id, people_id)
 );
 
-SELECT * from peopleskills;
+# SELECT * from peopleskills;
 
 # Section 7
 # Populate peopleskills such that:
@@ -159,35 +159,32 @@ INSERT INTO peopleskills (people_id, skills_id) values
     (10,4),
     (10,5);
 
-INSERT INTO peopleskills (people_id, skills_id) values
-    (1,1);
+# SELECT * FROM peopleskills;
+# SELECT count(*) FROM peopleskills;
 
-SELECT * FROM peopleskills;
-SELECT count(*) FROM peopleskills;
+# joined table of people and their skills
+# SELECT
+#     name,
+#     count(*)
+# FROM
+#     peopleskills a
+#     INNER JOIN people b ON (a.people_id=b.people_id)
+#     INNER JOIN skills c on (a.skills_id=c.skills_id)
+# GROUP BY
+#     name
+# ;
 
-## joined table of people and their skills
-SELECT
-    name,
-    count(*)
-FROM
-    peopleskills a
-    INNER JOIN people b ON (a.people_id=b.people_id)
-    INNER JOIN skills c on (a.skills_id=c.skills_id)
-GROUP BY
-    name
-;
+# DELETE FROM skills where skills_id=3;
 
-### DELETE FROM skills where skills_id=3;
-
-## table of people with no skills
-SELECT
-    last_name
-FROM
-    people a
-        LEFT JOIN peopleskills b ON (a.people_id=b.people_id)
-WHERE
-    b.people_id is NULL
-;
+# table of people with no skills
+# SELECT
+#     last_name
+# FROM
+#     people a
+#         LEFT JOIN peopleskills b ON (a.people_id=b.people_id)
+# WHERE
+#     b.people_id is NULL
+# ;
 
 # Section 8
 # Create roles( id, name, sort_priority )
@@ -199,7 +196,7 @@ CREATE TABLE roles (
     sort_priority int
 );
 
-SELECT * from roles;
+# SELECT * from roles;
 
 # Section 9
 # Populate roles
@@ -214,7 +211,7 @@ INSERT INTO roles (role_id, name, sort_priority) values
     (5, 'Boss', 50),
     (6, 'Mentor', 60);
 
-SELECT * FROM roles;
+# SELECT * FROM roles;
 
 # Section 10
 # Create peopleroles( id, people_id, role_id, date_assigned )
@@ -229,7 +226,7 @@ CREATE TABLE peopleroles (
     foreign key (role_id) references roles (role_id)
 );
 
-SELECT * FROM peopleroles;
+# SELECT * FROM peopleroles;
 
 # Section 11
 # Populate peopleroles
@@ -261,13 +258,12 @@ INSERT INTO peopleroles (people_id, role_id) values
     (10,2),
     (10,1);
 
+# SELECT * FROM peopleroles;
 
-SELECT * FROM peopleroles;
-
-SELECT
-    *
-FROM
-    peopleroles a
-    INNER JOIN people b ON (a.people_id=b.people_id)
-    INNER JOIN roles c on (a.role_id=c.role_id)
-;
+# SELECT
+#     *
+# FROM
+#    peopleroles a
+#     INNER JOIN people b ON (a.people_id=b.people_id)
+#     INNER JOIN roles c on (a.role_id=c.role_id)
+# ;
